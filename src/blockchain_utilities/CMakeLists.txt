@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2017, The Monero Project
+# Copyright (c) 2014-2017, The Monero Project;Copyright (c) 2017-2018,The Wukong Project
 #
 # All rights reserved.
 #
@@ -92,7 +92,7 @@ endif()
 
 set_property(TARGET blockchain_import
 	PROPERTY
-	OUTPUT_NAME "monero-blockchain-import")
+	OUTPUT_NAME "wukong-blockchain-import")
 install(TARGETS blockchain_import DESTINATION bin)
 
 monero_add_executable(blockchain_export
@@ -114,6 +114,5 @@ target_link_libraries(blockchain_export
 
 set_property(TARGET blockchain_export
 	PROPERTY
-	OUTPUT_NAME "monero-blockchain-export")
+	OUTPUT_NAME "wukong-blockchain-export")
 install(TARGETS blockchain_export DESTINATION bin)
-

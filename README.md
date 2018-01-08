@@ -1,6 +1,6 @@
 # Monero
 
-Copyright (c) 2014-2017 The Monero Project.   
+Copyright (c) 2014-2017 The Monero Project;Copyright (c) 2017-2018,The Wukong Project.   
 Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 ## Development resources
@@ -143,10 +143,10 @@ Installing a snap is very quick. Snaps are secure. They are isolated with all of
         docker build --build-arg NPROC=1 -t monero .
      
         # either run in foreground
-        docker run -it -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 18080:18080 monero
+        docker run -it -v /monero/chain:/root/.wukong -v /monero/wallet:/wallet -p 18080:18080 monero
 
         # or in background
-        docker run -it -d -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 18080:18080 monero
+        docker run -it -d -v /monero/chain:/root/.wukong -v /monero/wallet:/wallet -p 18080:18080 monero
 
 Packaging for your favorite distribution would be a welcome contribution!
 
@@ -212,7 +212,7 @@ invokes cmake commands as needed.
 
 * Add `PATH="$PATH:$HOME/monero/build/release/bin"` to `.profile`
 
-* Run Monero with `monerod --detach`
+* Run Monero with `wukongd --detach`
 
 * **Optional**: build and run the test suite to verify the binaries:
 
@@ -263,7 +263,7 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 
 * Add `PATH="$PATH:$HOME/monero/build/release/bin"` to `.profile`
 
-* Run Monero with `monerod --detach`
+* Run Monero with `wukongd --detach`
 
 * You may wish to reduce the size of the swap file after the build has finished, and delete the boost directory from your home directory
 
@@ -471,15 +471,15 @@ By default, in either dynamically or statically linked builds, binaries target t
 * ```make release-static-win64``` builds binaries on 64-bit Windows portable across 64-bit Windows systems
 * ```make release-static-win32``` builds binaries on 64-bit or 32-bit Windows portable across 32-bit Windows systems
 
-## Running monerod
+## Running wukongd
 
 The build places the binary in `bin/` sub-directory within the build directory
 from which cmake was invoked (repository root by default). To run in
 foreground:
 
-    ./bin/monerod
+    ./bin/wukongd
 
-To list all available options, run `./bin/monerod --help`.  Options can be
+To list all available options, run `./bin/wukongd --help`.  Options can be
 specified either on the command line or in a configuration file passed by the
 `--config-file` argument.  To specify an option in the configuration file, add
 a line with the syntax `argumentname=value`, where `argumentname` is the name
@@ -487,17 +487,17 @@ of the argument without the leading dashes, for example `log-level=1`.
 
 To run in background:
 
-    ./bin/monerod --log-file monerod.log --detach
+    ./bin/wukongd --log-file wukongd.log --detach
 
 To run as a systemd service, copy
-[monerod.service](utils/systemd/monerod.service) to `/etc/systemd/system/` and
-[monerod.conf](utils/conf/monerod.conf) to `/etc/`. The [example
-service](utils/systemd/monerod.service) assumes that the user `monero` exists
+[wukongd.service](utils/systemd/wukongd.service) to `/etc/systemd/system/` and
+[wukongd.conf](utils/conf/wukongd.conf) to `/etc/`. The [example
+service](utils/systemd/wukongd.service) assumes that the user `monero` exists
 and its home is the data directory specified in the [example
-config](utils/conf/monerod.conf).
+config](utils/conf/wukongd.conf).
 
 If you're on Mac, you may need to add the `--max-concurrency 1` option to
-monero-wallet-cli, and possibly monerod, if you get crashes refreshing.
+monero-wallet-cli, and possibly wukongd, if you get crashes refreshing.
 
 ## Internationalization
 
@@ -505,19 +505,19 @@ See [README.i18n.md](README.i18n.md).
 
 ## Using Tor
 
-While Monero isn't made to integrate with Tor, it can be used wrapped with torsocks, if you add --p2p-bind-ip 127.0.0.1 to the monerod command line. You also want to set DNS requests to go over TCP, so they'll be routed through Tor, by setting DNS_PUBLIC=tcp or use a particular DNS server with DNS_PUBLIC=tcp://a.b.c.d (default is 8.8.4.4, which is Google DNS). You may also disable IGD (UPnP port forwarding negotiation), which is pointless with Tor. To allow local connections from the wallet, you might have to add TORSOCKS_ALLOW_INBOUND=1, some OSes need it and some don't. Example:
+While Monero isn't made to integrate with Tor, it can be used wrapped with torsocks, if you add --p2p-bind-ip 127.0.0.1 to the wukongd command line. You also want to set DNS requests to go over TCP, so they'll be routed through Tor, by setting DNS_PUBLIC=tcp or use a particular DNS server with DNS_PUBLIC=tcp://a.b.c.d (default is 8.8.4.4, which is Google DNS). You may also disable IGD (UPnP port forwarding negotiation), which is pointless with Tor. To allow local connections from the wallet, you might have to add TORSOCKS_ALLOW_INBOUND=1, some OSes need it and some don't. Example:
 
-`DNS_PUBLIC=tcp torsocks monerod --p2p-bind-ip 127.0.0.1 --no-igd`
+`DNS_PUBLIC=tcp torsocks wukongd --p2p-bind-ip 127.0.0.1 --no-igd`
 
 or:
 
-`DNS_PUBLIC=tcp TORSOCKS_ALLOW_INBOUND=1 torsocks monerod --p2p-bind-ip 127.0.0.1 --no-igd`
+`DNS_PUBLIC=tcp TORSOCKS_ALLOW_INBOUND=1 torsocks wukongd --p2p-bind-ip 127.0.0.1 --no-igd`
 
 TAILS ships with a very restrictive set of firewall rules. Therefore, you need to add a rule to allow this connection too, in addition to telling torsocks to allow inbound connections. Full example:
 
 `sudo iptables -I OUTPUT 2 -p tcp -d 127.0.0.1 -m tcp --dport 18081 -j ACCEPT`
 
-`DNS_PUBLIC=tcp torsocks ./monerod --p2p-bind-ip 127.0.0.1 --no-igd --rpc-bind-ip 127.0.0.1 --data-dir /home/amnesia/Persistent/your/directory/to/the/blockchain`
+`DNS_PUBLIC=tcp torsocks ./wukongd --p2p-bind-ip 127.0.0.1 --no-igd --rpc-bind-ip 127.0.0.1 --data-dir /home/amnesia/Persistent/your/directory/to/the/blockchain`
 
 `./monero-wallet-cli`
 
@@ -536,7 +536,7 @@ Run the build.
 Once it stalls, enter the following command:
 
 ```
-gdb /path/to/monerod `pidof monerod` 
+gdb /path/to/wukongd `pidof wukongd` 
 ```
 
 Type `thread apply all bt` within gdb in order to obtain the stack trace
@@ -549,27 +549,27 @@ Enter `echo core | sudo tee /proc/sys/kernel/core_pattern` to stop cores from be
 
 Run the build.
 
-When it terminates with an output along the lines of "Segmentation fault (core dumped)", there should be a core dump file in the same directory as monerod. It may be named just `core`, or `core.xxxx` with numbers appended.
+When it terminates with an output along the lines of "Segmentation fault (core dumped)", there should be a core dump file in the same directory as wukongd. It may be named just `core`, or `core.xxxx` with numbers appended.
 
 You can now analyse this core dump with `gdb` as follows:
 
-`gdb /path/to/monerod /path/to/dumpfile`
+`gdb /path/to/wukongd /path/to/dumpfile`
 
 Print the stack trace with `bt`
 
 * To run monero within gdb:
 
-Type `gdb /path/to/monerod`
+Type `gdb /path/to/wukongd`
 
 Pass command-line options with `--args` followed by the relevant arguments
 
-Type `run` to run monerod
+Type `run` to run wukongd
 
 ### Analysing memory corruption
 
 We use the tool `valgrind` for this.
 
-Run with `valgrind /path/to/monerod`. It will be slow.
+Run with `valgrind /path/to/wukongd`. It will be slow.
 
 ### LMDB
 

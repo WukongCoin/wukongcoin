@@ -9,10 +9,10 @@ grade: devel
 confinement: strict
 
 apps:
-    monerod:
+    wukongd:
         daemon: forking
         command: |
-          monerod-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/monerod.conf
+          wukongd-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/wukongd.conf
         plugs:
             - network
             - network-bind
@@ -72,8 +72,8 @@ parts:
         plugin: dump
         source: .
         organize:
-            contrib/snap/monerod.conf: etc/monerod.conf
-            contrib/snap/monerod-wrapper: bin/monerod-wrapper
+            contrib/snap/wukongd.conf: etc/wukongd.conf
+            contrib/snap/wukongd-wrapper: bin/wukongd-wrapper
         prime:
             - etc
             - bin
