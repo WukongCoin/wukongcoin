@@ -374,15 +374,11 @@ namespace nodetool
     if (testnet)
     {
       full_addrs.insert("35.201.252.189:28080");
-      full_addrs.insert("172.104.88.176:28080");
-      full_addrs.insert("176.122.185.125:28080");
       full_addrs.insert("47.90.82.132:28080");
     }
     else
     {
       full_addrs.insert("35.201.252.189:18080");
-      full_addrs.insert("172.104.88.176:18080");
-      full_addrs.insert("176.122.185.125:18080");
       full_addrs.insert("47.90.82.132:18080");
     }
     return full_addrs;
