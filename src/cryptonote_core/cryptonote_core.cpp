@@ -181,7 +181,7 @@ namespace cryptonote
     //
     // if (m_checkpoints_updating.test_and_set()) return true;
     //
-    // bool res = true;
+    bool res = true;
     // if (time(NULL) - m_last_dns_checkpoints_update >= 3600)
     // {
     //   res = m_blockchain_storage.update_checkpoints(m_checkpoints_path, true);
@@ -201,7 +201,7 @@ namespace cryptonote
     // {
     //   graceful_exit();
     // }
-    // return res;
+    return res;
   }
   //-----------------------------------------------------------------------------------
   void core::stop()
