@@ -67,7 +67,7 @@ You should have received a copy of the GNU General Public License along with thi
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
 
-The "Monero Maintainer Team" is defined in this document as the following users:
+The "Wukong Maintainer Team" is defined in this document as the following users:
 - fluffypony
 - moneromooo
 - hyc

@@ -369,7 +369,7 @@ namespace cryptonote
       if (boost::filesystem::exists(old_files / "blockchain.bin"))
       {
         MWARNING("Found old-style blockchain.bin in " << old_files.string());
-        MWARNING("Monero now uses a new format. You can either remove blockchain.bin to start syncing");
+        MWARNING("Wukong now uses a new format. You can either remove blockchain.bin to start syncing");
         MWARNING("the blockchain anew, or use wukong-blockchain-export and wukong-blockchain-import to");
         MWARNING("convert your existing blockchain.bin to the new format. See README.md for instructions.");
         return false;
