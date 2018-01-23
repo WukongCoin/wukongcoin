@@ -3571,35 +3571,35 @@ void Blockchain::check_against_checkpoints(const checkpoints& points, bool enfor
 // with an existing checkpoint.
 bool Blockchain::update_checkpoints(const std::string& file_path, bool check_dns)
 {
-  if (!m_checkpoints.load_checkpoints_from_json(file_path))
-  {
-      return false;
-  }
-
-  // if we're checking both dns and json, load checkpoints from dns.
-  // if we're not hard-enforcing dns checkpoints, handle accordingly
-  if (m_enforce_dns_checkpoints && check_dns && !m_offline)
-  {
-    if (!m_checkpoints.load_checkpoints_from_dns())
-    {
-      return false;
-    }
-  }
-  else if (check_dns && !m_offline)
-  {
-    checkpoints dns_points;
-    dns_points.load_checkpoints_from_dns();
-    if (m_checkpoints.check_for_conflicts(dns_points))
-    {
-      check_against_checkpoints(dns_points, false);
-    }
-    else
-    {
-      MERROR("One or more checkpoints fetched from DNS conflicted with existing checkpoints!");
-    }
-  }
-
-  check_against_checkpoints(m_checkpoints, true);
+  // if (!m_checkpoints.load_checkpoints_from_json(file_path))
+  // {
+  //     return false;
+  // }
+  //
+  // // if we're checking both dns and json, load checkpoints from dns.
+  // // if we're not hard-enforcing dns checkpoints, handle accordingly
+  // if (m_enforce_dns_checkpoints && check_dns && !m_offline)
+  // {
+  //   if (!m_checkpoints.load_checkpoints_from_dns())
+  //   {
+  //     return false;
+  //   }
+  // }
+  // else if (check_dns && !m_offline)
+  // {
+  //   checkpoints dns_points;
+  //   dns_points.load_checkpoints_from_dns();
+  //   if (m_checkpoints.check_for_conflicts(dns_points))
+  //   {
+  //     check_against_checkpoints(dns_points, false);
+  //   }
+  //   else
+  //   {
+  //     MERROR("One or more checkpoints fetched from DNS conflicted with existing checkpoints!");
+  //   }
+  // }
+  //
+  // check_against_checkpoints(m_checkpoints, true);
 
   return true;
 }

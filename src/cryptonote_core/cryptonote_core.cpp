@@ -177,31 +177,31 @@ namespace cryptonote
   //-----------------------------------------------------------------------------------------------
   bool core::update_checkpoints()
   {
-    if (m_testnet || m_fakechain || m_disable_dns_checkpoints) return true;
-
-    if (m_checkpoints_updating.test_and_set()) return true;
-
-    bool res = true;
-    if (time(NULL) - m_last_dns_checkpoints_update >= 3600)
-    {
-      res = m_blockchain_storage.update_checkpoints(m_checkpoints_path, true);
-      m_last_dns_checkpoints_update = time(NULL);
-      m_last_json_checkpoints_update = time(NULL);
-    }
-    else if (time(NULL) - m_last_json_checkpoints_update >= 600)
-    {
-      res = m_blockchain_storage.update_checkpoints(m_checkpoints_path, false);
-      m_last_json_checkpoints_update = time(NULL);
-    }
-
-    m_checkpoints_updating.clear();
-
-    // if anything fishy happened getting new checkpoints, bring down the house
-    if (!res)
-    {
-      graceful_exit();
-    }
-    return res;
+    // if (m_testnet || m_fakechain || m_disable_dns_checkpoints) return true;
+    //
+    // if (m_checkpoints_updating.test_and_set()) return true;
+    //
+    // bool res = true;
+    // if (time(NULL) - m_last_dns_checkpoints_update >= 3600)
+    // {
+    //   res = m_blockchain_storage.update_checkpoints(m_checkpoints_path, true);
+    //   m_last_dns_checkpoints_update = time(NULL);
+    //   m_last_json_checkpoints_update = time(NULL);
+    // }
+    // else if (time(NULL) - m_last_json_checkpoints_update >= 600)
+    // {
+    //   res = m_blockchain_storage.update_checkpoints(m_checkpoints_path, false);
+    //   m_last_json_checkpoints_update = time(NULL);
+    // }
+    //
+    // m_checkpoints_updating.clear();
+    //
+    // // if anything fishy happened getting new checkpoints, bring down the house
+    // if (!res)
+    // {
+    //   graceful_exit();
+    // }
+    // return res;
   }
   //-----------------------------------------------------------------------------------
   void core::stop()
@@ -370,7 +370,7 @@ namespace cryptonote
       {
         MWARNING("Found old-style blockchain.bin in " << old_files.string());
         MWARNING("Monero now uses a new format. You can either remove blockchain.bin to start syncing");
-        MWARNING("the blockchain anew, or use monero-blockchain-export and monero-blockchain-import to");
+        MWARNING("the blockchain anew, or use wukong-blockchain-export and wukong-blockchain-import to");
         MWARNING("convert your existing blockchain.bin to the new format. See README.md for instructions.");
         return false;
       }
@@ -1187,7 +1187,7 @@ namespace cryptonote
 
     // load json & DNS checkpoints every 10min/hour respectively,
     // and verify them with respect to what blocks we already have
-    CHECK_AND_ASSERT_MES(update_checkpoints(), false, "One or more checkpoints loaded from json or dns conflicted with existing checkpoints.");
+    // CHECK_AND_ASSERT_MES(update_checkpoints(), false, "One or more checkpoints loaded from json or dns conflicted with existing checkpoints.");
 
     bvc = boost::value_initialized<block_verification_context>();
     if(block_blob.size() > get_max_block_size())
