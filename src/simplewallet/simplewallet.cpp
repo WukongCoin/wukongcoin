@@ -4535,7 +4535,7 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
      return true;
   }
   // Hardcode Monero's donation address (see #1447)
-  const std::string address_str = "44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A";
+  const std::string address_str = "9yKxFHfe61QKLegJcPYzFDaGRXu24syM4QBMJoEN1wNggBStpTxM1iNE2HwZwHkesNUfr2tDp9zrx6LUVauzcnTUUnERUfB";
   std::string amount_str;
   std::string payment_id_str;
   // get payment id and pop
@@ -4555,7 +4555,7 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
   local_args.push_back(amount_str);
   if (!payment_id_str.empty())
     local_args.push_back(payment_id_str);
-  message_writer() << tr("Donating ") << amount_str << " to The Monero Project;Copyright (c) 2017-2018,The Wukong Project (donate.wukongcoin.org/44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A).";
+  message_writer() << tr("Donating ") << amount_str << " to The Monero Project;Copyright (c) 2017-2018,The Wukong Project (donate.wukongcoin.org/9yKxFHfe61QKLegJcPYzFDaGRXu24syM4QBMJoEN1wNggBStpTxM1iNE2HwZwHkesNUfr2tDp9zrx6LUVauzcnTUUnERUfB).";
   transfer_new(local_args);
   return true;
 }
